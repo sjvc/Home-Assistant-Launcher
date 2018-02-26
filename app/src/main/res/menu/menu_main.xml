@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_lock_screen"
+        android:title="@string/lock_screen"
+        android:checkable="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_back_key_behavior"
+        android:title="@string/adjust_back_key_behavior"
+        android:checkable="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_hide_admin_menu_items"
+        android:title="@string/hide_admin_menu_items"
+        android:checkable="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_hide_top_bar"
+        android:title="@string/hide_top_bar"
+        app:showAsAction="never" />
+</menu>

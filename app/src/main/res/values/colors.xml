@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorAccent">#45739C</color>
+
+    <!-- Lock Screen -->
+    <color name="text_numberpressed">#FFFFFF</color>
+    <color name="text_title">#212121</color>
+    <color name="text_attempts">#727272</color>
+    <color name="text_fingerprint">#727272</color>
+    <color name="button_notpressed">#03A9F4</color>
+</resources>

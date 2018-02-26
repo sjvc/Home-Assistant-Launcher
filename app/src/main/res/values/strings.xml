@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Assistant</string>
+
+    <string name="enter_hass_url">Enter Hass URL</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="adjust_back_key_behavior">Back key behavior</string>
+    <string name="hide_admin_menu_items">Hide admin menu items</string>
+    <string name="hide_top_bar">Hide top bar</string>
+    <string name="hide_top_bar_warning">If you hide top bar, it will be inaccessible until you delete app data (or reinstall).\n\nAre you sure?</string>
+</resources>
