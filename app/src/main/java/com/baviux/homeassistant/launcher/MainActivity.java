@@ -7,25 +7,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.ConsoleMessage;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.amirarcane.lockscreen.activity.EnterPinActivity;
-import com.baviux.homeassistant.launcher.util.WebViewUtils;
+import com.baviux.homeassistant.HassWebView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private final static int REQUEST_PIN_CODE = 4100;
 
     private Toolbar mToolbar;
-    private WebView mWebView;
+    private HassWebView mWebView;
     private EditText mUrlEditText;
 
     private String mUrl = null;
@@ -106,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_back_key_behavior:
                 Preferences.setAdjustBackKeyBehavior(item.isChecked());
+                mWebView.setAdjustBackKeyBehavior(Preferences.getAdjustBackKeyBehavior());
                 break;
             case R.id.menu_hide_admin_menu_items:
                 Preferences.setHideAdminMenuItems(item.isChecked());
-                WebViewUtils.execJavascript(MainActivity.this, mWebView,
-                        "AndroidHass.setAdmin(" + !Preferences.getHideAdminMenuItems() + ");");
+                mWebView.setHideAdminMenuItems(Preferences.getHideAdminMenuItems());
                 break;
             case R.id.menu_hide_top_bar:
                 askHidingTopBar();
@@ -172,24 +165,13 @@ public class MainActivity extends AppCompatActivity {
     private void setupWebView(){
         if(mWebView == null) {
             mWebView = findViewById(R.id.webView);
-            mWebView.getSettings().setJavaScriptEnabled(true);
-            mWebView.getSettings().setDomStorageEnabled(true);
-            mWebView.setWebViewClient(new WebViewClient() {
-                @Override
-                public void onPageFinished(WebView view, String url) {
-                    super.onPageFinished(view, url);
 
-                    WebViewUtils.injectJavascriptFile(MainActivity.this, mWebView, R.raw.android_hass);
-                    if (Preferences.getHideAdminMenuItems()) {
-                        WebViewUtils.execJavascript(MainActivity.this, mWebView, "AndroidHass.setAdmin(false);");
-                    }
-                }
-            });
-            mWebView.setWebChromeClient(new WebChromeClient() {
+            mWebView.setHideAdminMenuItems(Preferences.getHideAdminMenuItems());
+            mWebView.setAdjustBackKeyBehavior(Preferences.getAdjustBackKeyBehavior());
+            mWebView.setEventHandler(new HassWebView.IEventHandler() {
                 @Override
-                public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                    Log.d(TAG, consoleMessage.message() + " -- From line " + consoleMessage.lineNumber() + " of " + consoleMessage.sourceId());
-                    return super.onConsoleMessage(consoleMessage);
+                public void onFinish() {
+                    MainActivity.this.finish();
                 }
             });
         }
@@ -211,21 +193,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mWebView == null || !mWebView.canGoBack()){
+        if (mWebView == null){
             super.onBackPressed();
+            return;
         }
-        else if (Preferences.getAdjustBackKeyBehavior()){
-            mWebView.evaluateJavascript("AndroidHass.onBackPressed();", new ValueCallback<String>() {
-                @Override
-                public void onReceiveValue(String value) {
-                    if (!"true".equals(value)) {
-                        finish();
-                    }
-                }
-            });
-        }
-        else{
-            mWebView.goBack();
-        }
+
+        mWebView.goBack();
     }
 }

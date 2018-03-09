@@ -15,6 +15,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="baviux.intent.action.LAUNCH_HOME_ASSISTANT" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

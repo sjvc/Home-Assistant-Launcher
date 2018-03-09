@@ -18,7 +18,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.github.sjvc:Home-Assistant-WebView:master-SNAPSHOT'
     compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
     compile 'com.android.support:design:26.1.0'
 }
