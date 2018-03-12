@@ -6,8 +6,8 @@ android {
         applicationId "com.baviux.homeassistant.launcher"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 10001
+        versionName "1.0.1"
     }
     buildTypes {
         release {
