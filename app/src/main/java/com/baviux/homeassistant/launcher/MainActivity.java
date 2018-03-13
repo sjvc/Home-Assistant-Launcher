@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
             mWebView.setHideAdminMenuItems(Preferences.getHideAdminMenuItems());
             mWebView.setAdjustBackKeyBehavior(Preferences.getAdjustBackKeyBehavior());
-            mWebView.setEventHandler(new HassWebView.IEventHandler() {
+            mWebView.setOnFinishEventHandler(new HassWebView.IOnFinishEventHandler() {
                 @Override
                 public void onFinish() {
                     MainActivity.this.finish();
