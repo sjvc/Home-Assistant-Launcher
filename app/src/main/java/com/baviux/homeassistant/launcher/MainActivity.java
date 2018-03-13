@@ -198,6 +198,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        mWebView.goBack();
+        mWebView.onBackPressed();
     }
 }
