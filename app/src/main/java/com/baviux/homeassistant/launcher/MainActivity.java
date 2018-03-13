@@ -193,11 +193,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mWebView == null){
-            super.onBackPressed();
+        // If it's handled by WebView -> it's done!
+        if (mWebView != null && mWebView.onBackPressed()){
             return;
         }
 
-        mWebView.onBackPressed();
+        // If not, if we can go back -> let's go back!
+        if (mWebView != null && mWebView.canGoBack()){
+            mWebView.goBack();
+            return;
+        }
+
+        // Else -> Let parent class handle it
+        super.onBackPressed();
     }
 }
