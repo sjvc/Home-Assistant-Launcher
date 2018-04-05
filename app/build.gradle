@@ -6,8 +6,8 @@ android {
         applicationId "com.baviux.homeassistant.launcher"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 10001
-        versionName "1.0.1"
+        versionCode 10002
+        versionName "1.0.2"
     }
     buildTypes {
         release {
@@ -20,6 +20,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.github.sjvc:Home-Assistant-WebView:master-SNAPSHOT'
+    // compile project(':hassWebView')
     compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
     compile 'com.android.support:design:26.1.0'
 }

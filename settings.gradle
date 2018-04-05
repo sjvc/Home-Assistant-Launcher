@@ -1,1 +1,4 @@
 include ':app'
+
+// include ':hassWebView'
+// project(':hassWebView').projectDir = new File(settingsDir, '../_libs_/Home-Assistant-WebView/HassWebView')
