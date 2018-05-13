@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String mUrl = null;
     private long mSessionExpireMillis = 0;
+    private boolean mLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +54,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (Preferences.getUseLockScreen() && isSessionFinished()) {
-            Intent intent = new Intent(this, EnterPinActivity.class);
-            startActivityForResult(intent, REQUEST_PIN_CODE);
-        }
-    }
-
-    @Override
     protected void onStop() {
-        if (mSessionExpireMillis > 0) {
-            resetSessionExpireMillis();
+        if (Preferences.getUseLockScreen() && mLoggedIn) {
+            mSessionExpireMillis = System.currentTimeMillis() + SESSION_TIMEOUT_MILLIS;
         }
 
         super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (Preferences.getUseLockScreen()){
+            if (mSessionExpireMillis > 0 && System.currentTimeMillis() > mSessionExpireMillis){
+                mLoggedIn = false;
+            }
+
+            if (!mLoggedIn) {
+                Intent intent = new Intent(this, EnterPinActivity.class);
+                startActivityForResult(intent, REQUEST_PIN_CODE);
+            }
+        }
     }
 
     @Override
@@ -150,13 +157,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         switch (requestCode) {
             case REQUEST_PIN_CODE:
                 if (resultCode == EnterPinActivity.RESULT_BACK_PRESSED) {
                     finish();
                 }
                 else if (resultCode == RESULT_OK){
-                    resetSessionExpireMillis();
+                    mLoggedIn = true;
+                    mSessionExpireMillis = 0;
                 }
                 break;
         }
@@ -181,14 +190,6 @@ public class MainActivity extends AppCompatActivity {
             mUrl = url;
             mWebView.loadUrl(mUrl);
         }
-    }
-
-    private boolean isSessionFinished(){
-        return (System.currentTimeMillis() > mSessionExpireMillis);
-    }
-
-    private void resetSessionExpireMillis(){
-        mSessionExpireMillis = System.currentTimeMillis() + SESSION_TIMEOUT_MILLIS;
     }
 
     @Override
