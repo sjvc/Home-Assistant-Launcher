@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.baviux.homeassistant.launcher"
         minSdkVersion 23
-        targetSdkVersion 26
-        versionCode 10003
-        versionName "1.0.3"
+        targetSdkVersion 27
+        versionCode 10004
+        versionName "1.0.4"
     }
     buildTypes {
         release {
@@ -23,8 +23,8 @@ configurations.all {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.github.sjvc:Home-Assistant-WebView:master-SNAPSHOT'
-    // compile project(':hassWebView')
-    compile 'com.amirarcane.lock-screen:lockscreen:1.0.0'
-    compile 'com.android.support:design:26.1.0'
+    implementation 'com.github.sjvc:Home-Assistant-WebView:master-SNAPSHOT'
+    // implementation project(':hassWebView')
+    implementation 'com.amirarcane.lock-screen:lockscreen:2.0.0'
+    implementation 'com.android.support:design:27.1.1'
 }
