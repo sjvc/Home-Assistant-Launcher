@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.baviux.homeassistant.launcher"
-        minSdkVersion 17
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 10005
         versionName "1.0.5"
