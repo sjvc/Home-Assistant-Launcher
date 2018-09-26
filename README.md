@@ -1,6 +1,10 @@
 # Home-Assistant-Launcher
 Home Assistant launcher is a simple Android app to use your Home Assistant web UI with some improvements:
 
+## Home-Assistant version
+Home Assistant may change its DOM structure on new releases, so this WebView may not work correctly if it happens. 
+Latest commit is tested and fully working under **Home Assistant v0.78.3**.
+
 ## Lock Screen
 If you want to keep the access to Home Assistant password protected in your Android device, you have to logout and login everytime. Home Assistant launcher uses a simple lock screen, so you only have to enter your pin, or use your fingerprint (if your device supports it). It's fast, and reliable. For this feature we are using this library: https://github.com/amirarcane/lock-screen
 
